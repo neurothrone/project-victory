@@ -6,7 +6,7 @@ const sendButton = document.getElementById("sendButton");
 async function loadMessages() {
   try {
 
-    const response = await fetch("PLACEHOLDER");
+    const response = await fetch("http://localhost:3000/api/messages");
     const messages = await response.json();
 
     messageDiv.innerHTML = "";
@@ -33,10 +33,10 @@ async function sendMessage() {
 
   try {
 
-    await fetch("PLACEHOLDER", {
+    await fetch("http://localhost:3000/api/messages", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({text})
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
     });
 
     messageInput.value = "";

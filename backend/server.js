@@ -21,9 +21,9 @@ app.get(
 app.post(
   "/api/messages",
   (req, res) => {
-    const {text} = req.body;
+    const { text } = req.body;
     if (!text) {
-      return res.status(400).json({error: "Text is required"});
+      return res.status(400).json({ error: "Text is required" });
     }
 
     const newMessage = {
