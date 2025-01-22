@@ -5,19 +5,32 @@ const sendButton = document.getElementById("sendButton");
 
 async function loadMessages() {
   try {
-
-    const response = await fetch("http://localhost:3000/api/messages");
+    const response = await fetch("https://cloud24chat.azurewebsites.net/api/messages");
     const messages = await response.json();
 
     messageDiv.innerHTML = "";
 
     messages.forEach((msg) => {
       const messageElement = document.createElement("div");
-      messageElement.textContent = `${msg.text}`
+      messageElement.innerHTML = `
+<div class="message">
+  <div class="message-header">
+    <span class="username">Username</span>
+    <span class="timestamp">${new Date(msg.createdAt).toLocaleString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      })}</span>
+  </div>
+  <div class="message-body">
+    ${msg.text}
+  </div>
+</div>
+      `;
       messageDiv.appendChild(messageElement);
     });
 
-
+    scrollToBottom();
   } catch (error) {
     console.log(error);
   }
@@ -32,20 +45,21 @@ async function sendMessage() {
   }
 
   try {
-
-    await fetch("http://localhost:3000/api/messages", {
+    await fetch("https://cloud24chat.azurewebsites.net/api/messages", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text })
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({text})
     });
 
     messageInput.value = "";
     loadMessages();
-
   } catch (error) {
 
   }
+}
 
+function scrollToBottom() {
+  messageDiv.scrollTop = messageDiv.scrollHeight;
 }
 
 sendButton.addEventListener("click", sendMessage)
