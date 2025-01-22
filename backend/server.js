@@ -1,3 +1,6 @@
+require("dotenv").config();
+const mongoose = require("mongoose");
+const msgLog = require("./mongoose")
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,36 +10,37 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cors());
 
-let messages = [];
-let currentId = 0;
-
 app.get(
   "/api/messages",
-  (req, res) => {
-    console.log("Getting all messages");
-    res.json(messages);
+  async(req, res) => {
+    const storedMessages = await msgLog.find({}).sort({timestamp: 1});
+    console.log("Getting all messages" + storedMessages);
+    res.json(storedMessages);
   }
 );
-//merging
+
 app.post(
   "/api/messages",
-  (req, res) => {
-    const { text } = req.body;
-    if (!text) {
-      return res.status(400).json({ error: "Text is required" });
+  async (req, res) => {
+    try {
+      const message = await msgLog.create(req.body);
+      if (!message) {
+        return res.status(400).json({ error: "Text is required" });
+      }
     }
-
-    const newMessage = {
-      id: ++currentId,
-      text: text,
-      createdAt: new Date()
+    catch (error) {
+      console.log(error.message)
+      res.status(404);
     }
-
-    messages.push(newMessage);
-    res.status(200).json(newMessage);
   }
 );
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+mongoose.
+connect(process.env.MONGO_URI)
+.then(() => {
+  console.log("connected to mongodb");
+  app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}`)
+  })
+  
 });
