@@ -5,7 +5,7 @@ const sendButton = document.getElementById("sendButton");
 
 async function loadMessages() {
   try {
-    const response = await fetch("https://cloud24chat.azurewebsites.net/api/messages");
+    const response = await fetch("https://project-victory.azurewebsites.net/api/messages");
     const messages = await response.json();
 
     messageDiv.innerHTML = "";
@@ -45,7 +45,7 @@ async function sendMessage() {
   }
 
   try {
-    await fetch("https://cloud24chat.azurewebsites.net/api/messages", {
+    await fetch("https://project-victory.azurewebsites.net/api/messages", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({text})
