@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const msgLog = require("./mongoose")
 const express = require("express");
 const https = require("https"); 
-const { server } = require("socket.io");
+const { Server } = require("socket.io");
 const app = express();
 const server = https.createServer(app);
 
