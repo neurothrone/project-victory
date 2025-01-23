@@ -16,14 +16,14 @@ async function loadMessages() {
 <div class="message">
   <div class="message-header">
     <span class="username">Username</span>
-    <span class="timestamp">${new Date(msg.createdAt).toLocaleString("en-US", {
+    <span class="timestamp">${new Date(msg.timestamp).toLocaleString("en-US", {
         hour: "2-digit",
         minute: "2-digit",
         hour12: false
       })}</span>
   </div>
   <div class="message-body">
-    ${msg.text}
+    ${msg.message}
   </div>
 </div>
       `;
