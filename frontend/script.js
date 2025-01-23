@@ -3,7 +3,7 @@ const messageInput = document.getElementById("messageInput");
 const sendButton = document.getElementById("sendButton");
 const socketIo = require("socket.io");
 
-const socket = socketIo("https://project-victory.azurestaticapps.net/api/messages");
+const socket = socketIo("https://project-victory.azurewebsites.net/api/messages");
 socket.on("message", (message) => {
   console.log("New message received:", message);
 
