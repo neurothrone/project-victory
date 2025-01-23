@@ -2,6 +2,8 @@ const messageDiv = document.getElementById("messages");
 const messageInput = document.getElementById("messageInput");
 const sendButton = document.getElementById("sendButton");
 
+const socket = io("https://project-victory.azurestaticapps.net");
+
 
 async function loadMessages() {
   try {
