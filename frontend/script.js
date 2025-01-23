@@ -5,7 +5,7 @@ const sendButton = document.getElementById("sendButton");
 
 async function loadMessages() {
   try {
-    const response = await fetch("https://project-victory.azurewebsites.net/api/messages");
+    const response = await fetch("http://localhost:3000/api/messages");
     const messages = await response.json();
 
     messageDiv.innerHTML = "";
@@ -45,16 +45,16 @@ async function sendMessage() {
   }
 
   try {
-    await fetch("https://project-victory.azurewebsites.net/api/messages", {
+    await fetch("http://localhost:3000/api/messages", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({text})
+      body: JSON.stringify({message: text})
     });
 
     messageInput.value = "";
-    loadMessages();
+    await loadMessages();
   } catch (error) {
-
+    console.log(error);
   }
 }
 
@@ -62,5 +62,7 @@ function scrollToBottom() {
   messageDiv.scrollTop = messageDiv.scrollHeight;
 }
 
-sendButton.addEventListener("click", sendMessage)
+sendButton.addEventListener("click", async () => {
+  await sendMessage();
+})
 loadMessages();
