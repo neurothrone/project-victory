@@ -3,7 +3,17 @@ const messageInput = document.getElementById("messageInput");
 const sendButton = document.getElementById("sendButton");
 
 const socket = io("https://project-victory.azurestaticapps.net");
+socket.on("newMessage", (message) => {
+  console.log("New message received:", message);
 
+  // Update the chat UI with the new message
+  const messageElement = document.createElement("div");
+  messageElement.textContent = `${message.timestamp}: ${message.message}`;
+  messageDiv.appendChild(messageElement);
+
+  // Scroll to the bottom
+  scrollToBottom();
+});
 
 async function loadMessages() {
   try {
