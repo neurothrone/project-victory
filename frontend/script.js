@@ -1,8 +1,9 @@
 const messageDiv = document.getElementById("messages");
 const messageInput = document.getElementById("messageInput");
 const sendButton = document.getElementById("sendButton");
+const socketIo = require("socket.io");
 
-const socket = io("https://project-victory.azurestaticapps.net/api/messages");
+const socket = socketIo("https://project-victory.azurestaticapps.net/api/messages");
 socket.on("message", (message) => {
   console.log("New message received:", message);
 
