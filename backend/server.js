@@ -26,8 +26,8 @@ app.get(
   async(req, res) => {
     const storedMessages = await msgLog.find({}).sort({timestamp: 1});
     console.log("Getting all messages" + storedMessages);
+    io.emit("messages", storedMessages);
     res.json(storedMessages);
-    io.emit("storedMessages", storedMessages);
   }
 );
 
