@@ -2,8 +2,8 @@ const messageDiv = document.getElementById("messages");
 const messageInput = document.getElementById("messageInput");
 const sendButton = document.getElementById("sendButton");
 
-const socket = io("https://project-victory.azurestaticapps.net");
-socket.on("newMessage", (message) => {
+const socket = io("https://project-victory.azurestaticapps.net/api/messages");
+socket.on("message", (message) => {
   console.log("New message received:", message);
 
   // Update the chat UI with the new message
